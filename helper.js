@@ -35,7 +35,13 @@ handler.handleReqRes = (req,res)=>{
 
     const choserHandler = routes[trimmedPath] ? routes[trimmedPath] : notfoundHandler;
 
-    choserHandler(requetProperties,(statusCode, payload)=>{
+    req.on('data',(buffer)=>{
+        realdata += decoder.write(buffer);
+    })
+    req.on("end",()=>{
+        realdata += decoder.end();
+
+        choserHandler(requetProperties,(statusCode, payload)=>{
         statusCode = typeof(statusCode) === "number" ? statusCode : 500;
         payload = typeof(payload) === "object" ? payload : {};
 
@@ -44,15 +50,8 @@ handler.handleReqRes = (req,res)=>{
         res.writeHead(statusCode);
         res.end(payloadString);
     })
-
-    req.on('data',(buffer)=>{
-        realdata += decoder.write(buffer);
-    })
-    req.on("end",()=>{
-        realdata += decoder.end();
-        console.log(realdata);
         // response handle
-        res.end('Hello world');
+       
     })
 }
 
