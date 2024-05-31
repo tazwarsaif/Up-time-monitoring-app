@@ -1,6 +1,0 @@
-
-$env:NODE_ENV="production"
-
-"scripts": {
-  "start": "set NODE_ENV=staging&& nodemon index"
-}
