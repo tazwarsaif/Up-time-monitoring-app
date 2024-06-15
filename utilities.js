@@ -1,3 +1,5 @@
+const crypto = require('crypto');
+const environment = require('./environment');
 utilities = {};
 
 utilities.parseJSON = (jsonString)=>{
@@ -10,6 +12,20 @@ utilities.parseJSON = (jsonString)=>{
         output = {};
     }
     return output;
+}
+
+
+utilities.hash = (str)=>{
+    if(typeof(str) === 'string' && str.length >0){
+        const hash = crypto
+        .createName('sha256',environment.secretKey)
+        .update(str)
+        .digest('hex');
+        return hash;
+    }
+    else{
+        return false
+    }
 }
 
 module.exports = utilities;

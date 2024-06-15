@@ -1,5 +1,5 @@
 const data  = require("./lib/data")
-
+const {hash} = require('./utilities')
 
 handler= {};
 handler.userHandler = (requestProperties,callback) =>{
@@ -8,7 +8,7 @@ handler.userHandler = (requestProperties,callback) =>{
     if(acceptedMethods.indexOf(requestProperties.method)>-1){
         handler._users[requestProperties.method](requestProperties,callback)
     }else{
-        callback(485);
+        callback(405);
     }
 }
 
@@ -28,10 +28,25 @@ handler._users.post = (requestProperties,callback)=>{
     if(firstName && lastName && phone && password &&tosAgreement){
         data.read('users',phone,(err,user)=>{
             if(err){
-                
+                let userObj = {
+                    firstName,
+                    lastName,
+                    phone,
+                    password: hash(password),
+                    tosAgreement,
+                }
+                data.create('user',phone,userObj,(err)=>{
+                    if(!err){
+                        callback(200,{
+                            message: 'User was created successfully!',
+                        })
+                    }else{
+                        callback(500,{'error':'COuldnt create User!'})
+                    }
+                })
             }else{ 
                 callback(500,{
-                    error: "There was a problem in server side!"
+                    'error': "There was a problem in server side!"
                 });
             }
         })

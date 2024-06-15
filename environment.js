@@ -2,12 +2,14 @@ environments = {};
 
 environments.staging = {
     port: 3000,
-    envName: "staging"
+    envName: "staging",
+    secretKey: "hklgkdsngksdg"
 };
 
 environments.production = {
     port: 5000,
-    envName: "production"
+    envName: "production",
+    secretKey: "jfhajfkhajkf"
 }
 
 const currentEnv = typeof(process.env.NODE_ENV) === 'string' ? process.env.NODE_ENV : 'staging';
