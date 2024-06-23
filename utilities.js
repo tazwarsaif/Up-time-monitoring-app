@@ -28,4 +28,20 @@ utilities.hash = (str)=>{
     }
 }
 
+utilities.createRandomStr = (strlen)=>{
+    let lenght = strlen;
+    length = typeof(strlen) === 'number' && strlen >0 ? strlen :false;
+    if(length){
+        let possibleChars = 'qwertyuiopasdfghjklzxcvbnm1234567890';
+        let output = '';
+        for(let i = 1; i<=length; i ++){
+            let randomchar = possibleChars.charAt(Math.floor(Math.random()*possibleChars.length));
+            output += randomchar;
+        }
+        return output;
+    }else{
+        return false
+    }
+}
+
 module.exports = utilities;
