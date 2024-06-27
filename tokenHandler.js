@@ -5,12 +5,12 @@ const {parseJSON} = require('./utilities')
 // const {hash} = require('./utilities')
 // const {parseJSON} = require('./utilities')
 
-handler= {};
+handler = {};
 handler.tokenHandler = (requestProperties,callback) =>{
     console.log(requestProperties);
     const acceptedMethods = ['get','post','put','delete'];
     if(acceptedMethods.indexOf(requestProperties.method)>-1){
-        handler._token[requestProperties.method](requestProperties,callback)
+        handler._token[requestProperties.method](requestProperties,callback);
     }else{
         callback(405);
     }
