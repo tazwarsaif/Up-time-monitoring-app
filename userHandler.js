@@ -18,6 +18,7 @@ handler.userHandler = (requestProperties,callback) =>{
 
 
 handler._users = {};
+
 handler._users.post = (requestProperties,callback)=>{
     const firstName = typeof(requestProperties.body.firstName) === 'string' && requestProperties.body.firstName.trim().length > 0 ? requestProperties.body.firstName : false;
 
@@ -63,6 +64,7 @@ handler._users.post = (requestProperties,callback)=>{
         callback(400,{error:"You have a problem in your request"})
     }
 }
+
 handler._users.get = (requestProperties,callback)=>{
     const phone = typeof(requestProperties.queryStrObj.phone) === 'string' && requestProperties.queryStrObj.phone.trim().length ===11 ? requestProperties.queryStrObj.phone : false;
     if(phone){
@@ -86,6 +88,7 @@ handler._users.get = (requestProperties,callback)=>{
         callback(404, {'error': 'requested user not found'})
     }
 }
+
 handler._users.put = (requestProperties,callback)=>{
     const phone = typeof(requestProperties.body.phone) === 'string' && requestProperties.body.phone.trim().length ===11 ? requestProperties.body.phone : false;
 
@@ -139,6 +142,7 @@ handler._users.put = (requestProperties,callback)=>{
         });
     }
 }
+
 handler._users.delete = (requestProperties,callback)=>{
     const phone = typeof(requestProperties.body.phone) === 'string' && requestProperties.queryStrObj.phone.trim().length ===11 ? requestProperties.queryStrObj.phone : false;
 
